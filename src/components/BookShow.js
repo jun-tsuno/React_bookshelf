@@ -1,21 +1,21 @@
 import { useState } from "react";
 import BookEdit from "./BookEdit";
+import useBooksContext from "../hooks/useBooksContext";
 
-function BookShow({ book, onDelete, onEdit }) {
+function BookShow({ book }) {
 	const [showEdit, setShowEdit] = useState(false);
+	const { deleteBookById } = useBooksContext();
 
 	const handleDeleteClick = () => {
-		onDelete(book.id);
+		deleteBookById(book.id);
 	};
 
 	const handleEditClick = () => {
 		setShowEdit(!showEdit);
 	};
 
-	// setShowEdit と　onEdit を別々に渡すのは非効率なため、１つの関数にまとめて渡す。
-	const handleSubmit = (id, newTitle) => {
+	const handleSubmit = () => {
 		setShowEdit(false);
-		onEdit(id, newTitle);
 	};
 
 	let content = <h3>{book.title}</h3>;
